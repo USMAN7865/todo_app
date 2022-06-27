@@ -1,39 +1,31 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 
 class TaskTile extends StatelessWidget {
-  const TaskTile({
-    Key? key,
-  }) : super(key: key);
+  bool ischecked;
+  final String? Tasktitle;
+  final Function(bool?) checkboxcallback;
+  final VoidCallback onlongpresscallback;
+
+  TaskTile(
+      {required this.ischecked,
+      required this.Tasktitle,
+      required this.checkboxcallback,
+      required this.onlongpresscallback});
 
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
-      title: Text('Enter First Task'),
-      trailing: Tilecheck(),
-    );
-  }
-}
-
-class Tilecheck extends StatefulWidget {
-  const Tilecheck({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<Tilecheck> createState() => _TilecheckState();
-}
-
-class _TilecheckState extends State<Tilecheck> {
-  bool ischecked = false;
-  @override
-  Widget build(BuildContext context) {
-    return Checkbox(
-      value: ischecked,
-      onChanged: (value) {
-        setState(() {
-          ischecked = value!;
-        });
-      },
-    );
+    return ListTile(
+        onLongPress: onlongpresscallback,
+        title: Text(
+          Tasktitle!,
+          style: TextStyle(
+              decoration: ischecked ? TextDecoration.lineThrough : null),
+        ),
+        trailing: Checkbox(
+          value: ischecked,
+          onChanged: checkboxcallback,
+        ));
   }
 }

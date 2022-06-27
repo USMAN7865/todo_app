@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_dlutter/Provider/tasks.dart';
+import 'package:todo_dlutter/Screens/TaskList.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    String newAddTask = '';
     return Container(
       color: const Color(0xFF757575),
       child: Container(
@@ -27,8 +29,11 @@ class AddTaskScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const TextField(
-                decoration: InputDecoration(
+              TextField(
+                onChanged: (value) {
+                  newAddTask = value;
+                },
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blueAccent),
                   ),
@@ -38,7 +43,11 @@ class AddTaskScreen extends StatelessWidget {
                 height: 20,
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<AddTasks>(context, listen: false)
+                        .addtask(newAddTask);
+                    Navigator.pop(context);
+                  },
                   child: Container(
                     height: 50,
                     width: 130,

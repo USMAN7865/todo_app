@@ -1,11 +1,19 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:todo_dlutter/Provider/tasks.dart';
 import 'package:todo_dlutter/Screens/TaskList.dart';
 import 'package:todo_dlutter/Screens/addTaskScreen.dart';
 
-class TodoTask extends StatelessWidget {
+class TodoTask extends StatefulWidget {
   const TodoTask({Key? key}) : super(key: key);
 
+  @override
+  State<TodoTask> createState() => _TodoTaskState();
+}
+
+class _TodoTaskState extends State<TodoTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +24,7 @@ class TodoTask extends StatelessWidget {
         ),
         onPressed: () {
           showModalBottomSheet(
-              context: context, builder: (context) => const AddTaskScreen());
+              context: context, builder: (context) => AddTaskScreen());
         },
       ),
       backgroundColor: Colors.blueAccent,
@@ -28,8 +36,8 @@ class TodoTask extends StatelessWidget {
                 const EdgeInsets.only(top: 80, left: 30, right: 30, bottom: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 30,
                   child: Icon(
@@ -38,10 +46,10 @@ class TodoTask extends StatelessWidget {
                     color: Colors.blueAccent,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Todo Tasks',
                   style: TextStyle(
                     color: Colors.white,
@@ -49,12 +57,12 @@ class TodoTask extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Text(
-                  '10 Tasks',
-                  style: TextStyle(
+                  '${Provider.of<AddTasks>(context).taskcount} Tasks',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
